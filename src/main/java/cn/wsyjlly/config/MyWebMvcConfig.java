@@ -65,8 +65,14 @@ public class MyWebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/");
-        String path = new File(System.getProperty("user.dir")).getAbsolutePath() + "\\data\\uploadFile\\";
-        registry.addResourceHandler("/uploadFiles/**").addResourceLocations(path);
+
+        String uploadPath = new File(System.getProperty("user.dir"),"uploadFiles").getAbsolutePath()+"/";
+        uploadPath = uploadPath.replaceAll("\\\\","/");
+
+//        registry.addResourceHandler("/uploadFiles/**").addResourceLocations("file:"+uploadPath);
+        registry.addResourceHandler("/uploadFiles/**").addResourceLocations("file:"+uploadPath);
+        //"file:"+"D:/IDEA/SpringBoot/demo-05/uploadFiles/"
+        System.out.println("上传文件路径映射：/uploadFiles/**  ————>>  "+uploadPath);
     }
 
     /*

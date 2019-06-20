@@ -1,9 +1,8 @@
 package cn.wsyjlly.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Properties;
 
 /**
  * @author wsyjlly
@@ -11,12 +10,17 @@ import java.util.Properties;
  **/
 @RestController
 public class ControllerDemo1 {
+
+    @Value("${server.port}")
+    private String location;
+
     @RequestMapping("/demo")
     public void demo(){
-        Properties properties = System.getProperties(); //遍历所有的属性
-        for (String key : properties.stringPropertyNames()) { //输出对应的键和值
-            System.out.println(key + "=" + properties.getProperty(key));
-        }
+        System.out.println(location);
+//        Properties properties = System.getProperties(); //遍历所有的属性
+//        for (String key : properties.stringPropertyNames()) { //输出对应的键和值
+//            System.out.println(key + "=" + properties.getProperty(key));
+//        }
     }
     
 }

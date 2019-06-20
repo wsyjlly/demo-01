@@ -1,13 +1,14 @@
 package cn.wsyjlly.file;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  * @author wsyjlly
  * @create 2019.06.18 - 18:54
  **/
 public class FilePath {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         /*
         * 获取当前路径
         * */
@@ -28,5 +29,18 @@ public class FilePath {
             file.mkdirs();//创建文件夹
         }
 
+
+
+
+//        String path = ClassUtils.getDefaultClassLoader().getResource("").getPath();
+//        System.out.println(path);
+//
+//        String path2 = ResourceUtils.getURL("classpath:").getPath();
+//
+//        System.out.println(path2);
+
+        File upload = new File(System.getProperty("user.dir"),"uploadFiles");
+        if(!upload.exists()) upload.mkdirs();
+        System.out.println("upload url:"+upload.getAbsolutePath());
     }
 }

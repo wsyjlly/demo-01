@@ -23,7 +23,7 @@ import java.util.UUID;
 @RestController
 public class FileUploadController {
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    public final String UPLOAD_PATH = "/data/uploadFiles/";
+    public final String UPLOAD_PATH = "/uploadFiles/";
     public final Integer SUCCESS = 1;
     public final Integer FAILURE = 0;
 
