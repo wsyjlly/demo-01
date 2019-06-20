@@ -1,5 +1,7 @@
 package cn.wsyjlly.interceptor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -11,21 +13,22 @@ import javax.servlet.http.HttpServletResponse;
  * @create 2019.06.13 - 16:52
  **/
 public class InterceptorDemo1 implements HandlerInterceptor {
+    private Logger logger = LoggerFactory.getLogger(getClass());
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println("InterceptorDemo1...preHandle");
+        logger.debug("InterceptorDemo1...preHandle");
         return true;
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        System.out.println("InterceptorDemo1...postHandle");
+        logger.debug("InterceptorDemo1...postHandle");
 
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        System.out.println("InterceptorDemo1...afterCompletion");
+        logger.debug("InterceptorDemo1...afterCompletion");
 
     }
 }

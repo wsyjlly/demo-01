@@ -1,5 +1,8 @@
 package cn.wsyjlly.filter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
@@ -10,9 +13,10 @@ import java.io.IOException;
  **/
 @WebFilter("/upload")
 public class FileUploadFilter implements Filter {
+    private Logger logger = LoggerFactory.getLogger(getClass());
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        System.out.println("FileUploadFilter...init...");
+        logger.debug("FileUploadFilter...init...");
     }
 
     @Override

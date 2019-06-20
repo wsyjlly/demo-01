@@ -5,6 +5,8 @@ import cn.wsyjlly.interceptor.InterceptorDemo1;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -24,6 +26,7 @@ import java.util.List;
  **/
 @Configuration
 public class MyWebMvcConfig implements WebMvcConfigurer {
+    private Logger logger = LoggerFactory.getLogger(getClass());
     /*@Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
 
@@ -65,14 +68,9 @@ public class MyWebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/");
-
-        String uploadPath = new File(System.getProperty("user.dir"),"uploadFiles").getAbsolutePath()+"/";
-        uploadPath = uploadPath.replaceAll("\\\\","/");
-
-//        registry.addResourceHandler("/uploadFiles/**").addResourceLocations("file:"+uploadPath);
+        String uploadPath = new File(System.getProperty("user.dir"),"uploadFiles").getAbsolutePath().replaceAll("\\\\","/")+"/";
         registry.addResourceHandler("/uploadFiles/**").addResourceLocations("file:"+uploadPath);
-        //"file:"+"D:/IDEA/SpringBoot/demo-05/uploadFiles/"
-        System.out.println("上传文件路径映射：/uploadFiles/**  ————>>  "+uploadPath);
+        logger.info("上传文件路径映射：/uploadFiles/**  ————>>  "+uploadPath);
     }
 
     /*

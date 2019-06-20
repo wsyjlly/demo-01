@@ -1,14 +1,14 @@
 package cn.wsyjlly.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,43 +22,32 @@ import java.util.UUID;
  **/
 @RestController
 public class FileUploadController {
-    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    public final String UPLOAD_PATH = "/uploadFiles/";
-    public final Integer SUCCESS = 1;
-    public final Integer FAILURE = 0;
+    private String fomartDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+    private final String UPLOAD_PATH = "/uploadFiles/";
+    private final Integer SUCCESS = 1;
+    private final Integer FAILURE = 0;
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     /*
      * 单文件上传
      * */
     @PostMapping("/upload")
-    public ModelMap upload(MultipartFile uploadFile, HttpServletRequest request) throws FileNotFoundException {
+    public ModelMap upload(MultipartFile uploadFile, HttpServletRequest request) {
         ModelMap map = new ModelMap();
         if (uploadFile == null){
             map.addAttribute("status",FAILURE);
             map.addAttribute("message","未选择文件");
             return map;
         }
-        System.out.println();
-        File file = new File(System.getProperty("user.dir")+UPLOAD_PATH);
-        if(!file.exists()){//如果文件夹不存在
-            file.mkdirs();//创建文件夹
-        }
-        String rootPath = file.getAbsolutePath();
-        System.out.println("根路径："+rootPath);
-
-        String format = sdf.format(new Date());
-        File folder = new File(rootPath+'/' + format);
-        if (!folder.isDirectory()){
-            folder.mkdirs();
-        }
-        System.out.println("文件夹路径:"+folder.getAbsolutePath());
+        File folder = getRootPath();
+        logger.debug("文件夹路径:"+folder.getAbsolutePath());
         String originalFilename = uploadFile.getOriginalFilename();
-        System.out.println("文件原名："+originalFilename);
+        logger.debug("文件原名："+originalFilename);
         String newName = UUID.randomUUID().toString() + originalFilename.substring(originalFilename.lastIndexOf("."), originalFilename.length());
         try {
             uploadFile.transferTo(new File(folder,newName));
-            String filePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/uploadFiles/" + format+"/" + newName;
-            System.out.println("文件访问路径："+filePath);
+            String filePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + UPLOAD_PATH + fomartDate+"/" + newName;
+            logger.debug("文件访问路径："+filePath);
             map.addAttribute("filePath",filePath);
             map.addAttribute("status",SUCCESS);
             return map;
@@ -74,29 +63,28 @@ public class FileUploadController {
      * 多文件上传
      * */
     @PostMapping("/uploads")
-    public ModelMap uploads(MultipartFile[] uploadFiles, HttpServletRequest request) throws FileNotFoundException {
+    public ModelMap uploads(MultipartFile[] uploadFiles, HttpServletRequest request) {
         ModelMap map = new ModelMap();
-        System.out.println("文件个数："+uploadFiles.length);
-        String realPath = ResourceUtils.getURL("classpath:").getPath()+UPLOAD_PATH;
-        String format = sdf.format(new Date());
-        File folder = new File(realPath + format);
-        if (!folder.isDirectory()){
-            folder.mkdirs();
-        }
+        logger.debug("文件个数："+uploadFiles.length);
+
+        //String realPath = ResourceUtils.getURL("classpath:").getPath()+UPLOAD_PATH;
+        File folder = getRootPath();
         HashMap<String, Map> fileListUploadStatus = new HashMap<>();
         for (MultipartFile file:uploadFiles){
             HashMap<String, Object> item = new HashMap<>();
             String originalFilename = file.getOriginalFilename();
             System.out.println("————————————————————————————————");
-            System.out.println("文件原名："+originalFilename);
-            System.out.println("文件大小："+file.getSize());
-            System.out.println("文件类型："+file.getContentType());
+
+            logger.debug("————————————————————————————————");
+            logger.debug("文件原名："+originalFilename);
+            logger.debug("文件大小："+file.getSize());
+            logger.debug("文件类型："+file.getContentType());
             String newName = UUID.randomUUID().toString() + originalFilename.substring(originalFilename.lastIndexOf("."), originalFilename.length());
             try {
                 file.transferTo(new File(folder,newName));
-                String filePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/" + UPLOAD_PATH + format+"/" + newName;
-                System.out.println("访问地址："+filePath);
-                System.out.println("地址文件名："+newName);
+                String filePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + UPLOAD_PATH + fomartDate+"/" + newName;
+                logger.debug("访问地址："+filePath);
+                logger.debug("地址文件名："+newName);
                 item.put("isUpload",true);
                 item.put("url",filePath);
                 fileListUploadStatus.put(originalFilename,item);
@@ -109,5 +97,17 @@ public class FileUploadController {
         }
         map.addAttribute("resultList",fileListUploadStatus);
         return map;
+    }
+    private File getRootPath(){
+        File file = new File(System.getProperty("user.dir")+UPLOAD_PATH);
+        if(!file.exists()){//如果文件夹不存在
+            file.mkdirs();//创建文件夹
+        }
+        String rootPath = file.getAbsolutePath();
+        File folder = new File(rootPath+'/' + fomartDate);
+        if (!folder.isDirectory()){
+            folder.mkdirs();
+        }
+        return folder;
     }
 }
