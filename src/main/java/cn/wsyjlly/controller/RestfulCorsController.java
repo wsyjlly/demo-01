@@ -60,8 +60,4 @@ public class RestfulCorsController {
         System.out.println(id);
         return String.valueOf(id);
     }
-
-
-
-
 }

@@ -17,8 +17,9 @@ public class ReflectConstructor {
             System.out.println(constructor);
             System.out.println("---------------");
             Constructor<?>[] constructors = cla.getConstructors();
-            for (Constructor item:constructors)
+            for (Constructor item:constructors) {
                 System.out.println(item);
+            }
             System.out.println("---------------");
             TestAnnotation testAnnotation = cla.newInstance();
             TestAnnotation testAnnotation1 = constructor.newInstance("ysw");

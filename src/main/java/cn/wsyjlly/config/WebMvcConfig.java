@@ -25,7 +25,7 @@ import java.util.List;
  * @create 2019.06.12 - 16:17
  **/
 @Configuration
-public class MyWebMvcConfig implements WebMvcConfigurer {
+public class WebMvcConfig implements WebMvcConfigurer {
     private Logger logger = LoggerFactory.getLogger(getClass());
     /*@Override
     public void configurePathMatch(PathMatchConfigurer configurer) {

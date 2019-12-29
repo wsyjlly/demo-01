@@ -8,7 +8,6 @@ import org.aspectj.lang.annotation.*;
  * @author wsyjlly
  * @create 2019.06.14 - 17:23
  **/
-//@Component
 @Aspect
 public class LogAspect {
     @Pointcut("execution(* cn.wsyjlly.controller.*.*(..))")

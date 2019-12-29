@@ -21,14 +21,16 @@ public class ReflectMethod {
             //getAnnotations得到的是包括继承的所有注释。
             System.out.println("--------获取方法中所有注解-------");
             Annotation[] annotations = method.getAnnotations();
-            for (Annotation item:annotations)
+            for (Annotation item:annotations) {
                 System.out.println(item);
+            }
 
             //getDeclaredAnnotations得到的是当前成员所有的注释，不包括继承的。
             System.out.println("--------获取方法中所有注解-------");
             Annotation[] declaredAnnotations = method.getDeclaredAnnotations();
-            for (Annotation item:declaredAnnotations)
+            for (Annotation item:declaredAnnotations) {
                 System.out.println(item);
+            }
 
             System.out.println("-------根据注解类型获取方法中的注解--------");
             AnnotationMethod annotation = method.getDeclaredAnnotation(AnnotationMethod.class);
@@ -44,8 +46,9 @@ public class ReflectMethod {
 
             System.out.println("--------方法上定义的泛型参数-------");
             TypeVariable<Method>[] typeParameters = method.getTypeParameters();
-            for (TypeVariable item:typeParameters)
+            for (TypeVariable item:typeParameters) {
                 System.out.println(item);
+            }
 
             System.out.println("---------------");
             Class<?> returnType = method.getReturnType();
@@ -58,20 +61,23 @@ public class ReflectMethod {
 
             System.out.println("---------------");
             Parameter[] parameters = method.getParameters();
-            for (Parameter item:parameters)
+            for (Parameter item:parameters) {
                 System.out.println(item);
+            }
 
 
             System.out.println("---------------");
             AnnotationMethod[] declaredAnnotationsByType = method.getDeclaredAnnotationsByType(AnnotationMethod.class);
-            for (AnnotationMethod item:declaredAnnotationsByType)
+            for (AnnotationMethod item:declaredAnnotationsByType) {
                 System.out.println(item);
+            }
 
 
             System.out.println("---------------");
             AnnotatedType[] annotatedParameterTypes = method.getAnnotatedParameterTypes();
-            for (AnnotatedType item:annotatedParameterTypes)
+            for (AnnotatedType item:annotatedParameterTypes) {
                 System.out.println(item);
+            }
 
 
 
@@ -81,8 +87,9 @@ public class ReflectMethod {
                 //获取方法参数注解
                 System.out.println(item);
                 Annotation[] itemAnnotations = item.getAnnotations();
-                for (Annotation item4:itemAnnotations)
+                for (Annotation item4:itemAnnotations) {
                     System.out.println(item4.annotationType().getSimpleName());
+                }
                 
                 Annotation[][] parameterAnnotations = item.getParameterAnnotations();
                 for (Annotation[] item2 : parameterAnnotations) {
@@ -95,8 +102,9 @@ public class ReflectMethod {
             System.out.println("---------------");
             Method annotationMethod = cla.getMethod("annotationMethod", int.class);
             Parameter[] annotationMethodParameters = annotationMethod.getParameters();
-            for (Parameter item:annotationMethodParameters)
+            for (Parameter item:annotationMethodParameters) {
                 System.out.println(item);
+            }
             System.out.println("---------------");
 
         } catch (ClassNotFoundException | NoSuchMethodException e) {

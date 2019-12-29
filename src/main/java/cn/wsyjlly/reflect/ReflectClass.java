@@ -31,23 +31,27 @@ public class ReflectClass {
             System.out.println(superclass);
             System.out.println(java.lang.reflect.Modifier.toString(modifiers));
             System.out.println("---------------");
-            for (TypeVariable item:typeParameters)
+            for (TypeVariable item:typeParameters) {
                 System.out.println(item);
+            }
             System.out.println("---------------");
             Class declaringClass = cla.getDeclaringClass();
             System.out.println(declaringClass);
             System.out.println("---------------");
             AnnotatedType[] annotatedInterfaces = cla.getAnnotatedInterfaces();
-            for (AnnotatedType item:annotatedInterfaces)
+            for (AnnotatedType item:annotatedInterfaces) {
                 System.out.println(item);
+            }
             System.out.println("---------------");
             Annotation[] annotations = cla.getAnnotations();
-            for (Annotation item:annotations)
+            for (Annotation item:annotations) {
                 System.out.println(item);
+            }
             System.out.println("---------------");
             Annotation[] declaredAnnotations = cla.getDeclaredAnnotations();
-            for (Annotation item:declaredAnnotations)
+            for (Annotation item:declaredAnnotations) {
                 System.out.println(item);
+            }
             System.out.println("---------------");
             ClassLoader classLoader = cla.getClassLoader();
             System.out.println(classLoader);

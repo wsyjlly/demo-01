@@ -40,7 +40,9 @@ public class FilePath {
 //        System.out.println(path2);
 
         File upload = new File(System.getProperty("user.dir"),"uploadFiles");
-        if(!upload.exists()) upload.mkdirs();
+        if(!upload.exists()) {
+            upload.mkdirs();
+        }
         System.out.println("upload url:"+upload.getAbsolutePath());
     }
 }

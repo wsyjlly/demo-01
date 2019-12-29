@@ -38,31 +38,50 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.47</version>
         </dependency>
-
+        <!--SpringBoot validation stater-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
         <!--SpringBoot AOP stater-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
-
-        <!--swagger测试工具 -->
-        <!--<dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>2.9.2</version>
+        <!--SpringBoot WebSocket stater-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+        <!--SpringBoot activemq stater-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-activemq</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.9.2</version>
-        </dependency>-->
-
-        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <optional>false</optional>
-        </dependency>-->
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <!--SpringBoot quartz stater-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-quartz</artifactId>
+        </dependency>
+        <!--SpringBoot mail stater-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -90,9 +109,10 @@
                 <configuration>
                     <dockerHost>http://47.102.210.175:2375</dockerHost>
                     <imageName>${project.name}:${project.version}</imageName>
-                    <volumes>/ysw/app/demo01</volumes>
+                    <workdir>/ysw/app</workdir>
+                    <volumes>/ysw/app</volumes>
                     <baseImage>java:8</baseImage>
-                    <entryPoint>["java", "-jar", "/ysw/${project.build.finalName}.jar"]</entryPoint>
+                    <entryPoint>["java", "-jar", "/ysw/app/${project.build.finalName}.jar"]</entryPoint>
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>

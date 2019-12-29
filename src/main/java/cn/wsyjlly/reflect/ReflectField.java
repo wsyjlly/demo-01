@@ -12,14 +12,16 @@ public class ReflectField {
         try {
             Class cla = Class.forName("cn.wsyjlly.annotation.TestAnnotation");
             Field[] declaredFields = cla.getDeclaredFields();
-            for (Field item:declaredFields)
+            for (Field item:declaredFields) {
                 System.out.println(item);
+            }
             Field field = cla.getDeclaredField("ID");
             //Field field2 = cla.getField("ID");
             System.out.println("---------------");
             Annotation[] annotations = field.getAnnotations();
-            for (Annotation item:annotations)
+            for (Annotation item:annotations) {
                 System.out.println(item);
+            }
             System.out.println("---------------");
             
             System.out.println("---------------");
